@@ -64,8 +64,7 @@ Version".
 Using Tor proxy
 ===============
 
-Starting from Zephyr release 3.2.3.1 automatic Tor Proxy
-detection and use on wallet startup is added to
+Zephyr automatically detects if a Tor Proxy is available, and using it on wallet startup is a choice under the
 `Network <docs/tor/tor-proxy-on-startup.md>`_ preferences.
 
 To use Tor Proxy on Ubuntu set it up with::
