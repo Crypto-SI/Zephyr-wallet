@@ -1,0 +1,11 @@
+{
+    "CoinMarketCap": [
+        "BTC",
+        "USD"
+    ],
+    "CoinGecko": [
+        "BTC",
+        "EUR",
+        "USD"
+    ]
+}

@@ -1,0 +1,22 @@
+# If you want Zephyr to appear in a Linux app launcher ("start menu"), install this by doing:
+# sudo desktop-file-install zephyr.desktop
+
+[Desktop Entry]
+Comment=Zephyr Wallet
+Exec=sh -c "PATH=\"\\$HOME/.local/bin:\\$PATH\"; zephyr %u"
+GenericName[en_US]=Zephyr
+GenericName=Zephyr
+Icon=zephyr
+Name[en_US]=Zephyr
+Name=Zephyr
+Categories=Network;
+StartupNotify=true
+StartupWMClass=zephyr
+Terminal=false
+Type=Application
+MimeType=x-scheme-handler/pivx;
+Actions=Testnet;
+
+[Desktop Action Testnet]
+Exec=sh -c "PATH=\"\\$HOME/.local/bin:\\$PATH\"; zephyr --testnet %u"
+Name=Testnet mode

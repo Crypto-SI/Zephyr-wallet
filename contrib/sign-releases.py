@@ -8,50 +8,6 @@ On ubuntu:
      sudo apt-get install devscripts libssl-dev python3-dev \
           debhelper python3-setuptools dh-python
 
-NOTE on apk signing: To create a keystore and sign the apk you need to install
-      java-8-openjdk, or java-7-openjdk on older systems.
-
-To create a keystore run the following command:
-
-    mkdir ~/.jks && keytool -genkey -v -keystore ~/.jks/keystore \
-        -alias electrum.dash.org -keyalg RSA -keysize 2048 \
-        -validity 10000
-
-Then it shows a warning about the proprietary format and a command to migrate:
-
-    keytool -importkeystore -srckeystore ~/.jks/keystore \
-            -destkeystore ~/.jks/keystore -deststoretype pkcs12
-
-Manual signing:
-
-    jarsigner -verbose \
-        -tsa http://sha256timestamp.ws.symantec.com/sha256/timestamp \
-        -sigalg SHA1withRSA -digestalg SHA1 \
-        -sigfile dash-electrum \
-        -keystore ~/.jks/keystore \
-        Electrum_DASH-3.0.6.1-release-unsigned.apk \
-        electrum.dash.org
-
-Zipalign from Android SDK build tools is also required (set path to bin in
-settings file or with key -z). To install:
-
-    wget http://dl.google.com/android/android-sdk_r24-linux.tgz \
-    && tar xzf android-sdk_r24-linux.tgz \
-    && rm android-sdk_r24-linux.tgz \
-    && (while sleep 3; do echo "y"; done) \
-        | android-sdk-linux/tools/android update sdk -u -a -t \
-            'tools, platform-tools-preview, build-tools-23.0.1' \
-    && (while sleep 3; do echo "y"; done) \
-        | android-sdk-linux/tools/android update sdk -u -a -t \
-            'tools, platform-tools, build-tools-27.0.3'
-
-Manual zip aligning:
-
-    android-sdk-linux/build-tools/27.0.3/zipalign -v 4 \
-        Electrum_DASH-3.0.6.1-release-unsigned.apk \
-        Dash-Electrum-3.0.6.1-release.apk
-
-
 
 About script settings:
 
@@ -144,9 +100,9 @@ PEP440_PUBVER_PATTERN = re.compile('^((\d+)!)?'
                                    '([a-zA-Z]+\d+)?'
                                    '((\.[a-zA-Z]+\d+)*)$')
 REL_NOTES_PATTERN = re.compile('^#.+?(^[^#].+?)^#.+?', re.M | re.S)
-SDIST_NAME_PATTERN = re.compile('^Dash-Electrum-(.*).tar.gz$')
-SDIST_DIR_TEMPLATE = 'Dash-Electrum-{version}'
-PPA_SOURCE_NAME = 'electrum-dash'
+SDIST_NAME_PATTERN = re.compile('^Zephyr-(.*).tar.gz$')
+SDIST_DIR_TEMPLATE = 'Zephyr-{version}'
+PPA_SOURCE_NAME = 'zephyr'
 PPA_ORIG_NAME_TEMPLATE = '%s_{version}.orig.tar.gz' % PPA_SOURCE_NAME
 CHANGELOG_TEMPLATE = """%s ({ppa_version}) {series}; urgency=medium
 {changes} -- {uid}  {time}""" % PPA_SOURCE_NAME
@@ -154,23 +110,6 @@ PPA_FILES_TEMPLATE = '%s_{0}{1}' % PPA_SOURCE_NAME
 LP_API_URL='https://api.launchpad.net/1.0'
 LP_SERIES_TEMPLATE = '%s/ubuntu/{0}' % LP_API_URL
 LP_ARCHIVES_TEMPLATE = '%s/~{user}/+archive/ubuntu/{ppa}' % LP_API_URL
-
-# sing_apk related definitions
-JKS_KEYSTORE = os.path.join(HOME_DIR, '.jks/keystore')
-JKS_ALIAS = 'electrum.dash.org'
-JKS_STOREPASS = 'JKS_STOREPASS'
-JKS_KEYPASS = 'JKS_KEYPASS'
-KEYTOOL_ARGS = ['keytool', '-list', '-storepass:env', JKS_STOREPASS]
-JARSIGNER_ARGS = [
-    'jarsigner', '-verbose',
-    '-tsa', 'http://sha256timestamp.ws.symantec.com/sha256/timestamp',
-    '-sigalg', 'SHA1withRSA', '-digestalg', 'SHA1',
-    '-sigfile', 'dash-electrum',
-    '-storepass:env', JKS_STOREPASS,
-    '-keypass:env', JKS_KEYPASS,
-]
-UNSIGNED_APK_PATTERN = re.compile('^Electrum_DASH-(.*)-release-unsigned.apk$')
-SIGNED_APK_TEMPLATE = 'Dash-Electrum-{version}-release.apk'
 
 
 os.environ['QUILT_PATCHES'] = 'debian/patches'
@@ -481,15 +420,6 @@ class SignApp(object):
                         sdist_match = sdist_match \
                                       or SDIST_NAME_PATTERN.match(name)
 
-                    apk_match = UNSIGNED_APK_PATTERN.match(name)
-                    if apk_match:
-                        unsigned_name = name
-                        name = self.sign_apk(unsigned_name, apk_match.group(1))
-
-                        gh_asset_upload(repo, tag, name, dry_run=self.dry_run)
-                        gh_asset_delete(repo, tag, unsigned_name,
-                                        dry_run=self.dry_run)
-
                     if not '%s.asc' % name in asc_names or self.force:
                         self.sign_file_name(name)
 
@@ -513,26 +443,6 @@ class SignApp(object):
 
             if sdist_match and is_newest_release:
                 self.make_ppa(sdist_match, tmpdir, tag)
-
-    def sign_apk(self, unsigned_name, version):
-        """Sign unsigned release apk"""
-        if not (JKS_STOREPASS in os.environ and JKS_KEYPASS in os.environ):
-            raise Exception('Found unsigned apk and no zipalign path set')
-
-        name = SIGNED_APK_TEMPLATE.format(version=version)
-
-        print('Signing apk: %s' % name)
-        apk_args = ['-keystore', self.jks_keystore,
-                    unsigned_name, self.jks_alias]
-        if self.verbose:
-            check_call(JARSIGNER_ARGS + apk_args)
-            check_call([self.zipalign_path, '-v', '4', unsigned_name, name])
-        else:
-            check_call(JARSIGNER_ARGS + apk_args, stdout=FNULL)
-            check_call([self.zipalign_path, '-v', '4', unsigned_name, name],
-                       stdout=FNULL)
-
-        return name
 
     def make_ppa(self, sdist_match, tmpdir, tag):
         """Build, sign and upload dsc to launchpad.net ppa from sdist.tar.gz"""

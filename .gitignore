@@ -3,7 +3,7 @@
 *.swp
 build/
 dist/
-electrum_dash/locale/
+zephyr_code/locale/
 .devlocaltmp/
 *_trial_temp
 packages
@@ -19,7 +19,5 @@ bin/
 .pytest_cache/
 .coverage
 
-electrum_data/
-electrum_dash/gui/kivy/theming/light-0.png
-electrum_dash/gui/kivy/theming/light.atlas
+zephyr_data/
 *.egg-info/

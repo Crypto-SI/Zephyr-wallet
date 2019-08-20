@@ -1,0 +1,7 @@
+
+Here are the links for all the assets in github, I have included them in a zip file also for ease.
+
+Thanks Rhubes
+
+
+https://github.com/akhavr/electrum-dash/blob/master/electrum-dash.icns https://github.com/akhavr/electrum-dash/blob/master/electrum_dash/gui/icons/electrumb.png https://github.com/akhavr/electrum-dash/blob/master/electrum_dash/gui/icons/electrum-dash.png https://github.com/akhavr/electrum-dash/blob/master/electrum_dash/gui/icons/electrum_dark_icon.png https://github.com/akhavr/electrum-dash/blob/master/electrum_dash/gui/icons/electrum_light_icon.png https://github.com/akhavr/electrum-dash/blob/master/electrum_dash/gui/icons/electrum_presplash.png https://github.com/akhavr/electrum-dash/blob/master/electrum_dash/gui/icons/dash_downArrow.png https://github.com/akhavr/electrum-dash/blob/master/electrum_dash/gui/icons/dash_downArrow_small.png https://github.com/akhavr/electrum-dash/blob/master/electrum_dash/gui/icons/dash_leftArrow_small.png https://github.com/akhavr/electrum-dash/blob/master/electrum_dash/gui/icons/dash_rightArrow_small.png https://github.com/akhavr/electrum-dash/blob/master/electrum_dash/gui/icons/dash_upArrow_small.png 
