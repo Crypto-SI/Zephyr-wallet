@@ -804,7 +804,7 @@ class Network(Logger):
                 return False
         else:
             bucket = iface_to_check.bucket_based_on_ipaddress()
-            if len(buckets[bucket]) > 0:
+            if len(buckets[bucket]) > 1:
                 return False
         return True
 

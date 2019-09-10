@@ -1,3 +1,9 @@
+# Release 0.9.1
+
+ * second alpha release
+ * bug fix for unresolved chain forks
+ * full server list
+
 # Release 0.9.0
 
  * initial alpha release

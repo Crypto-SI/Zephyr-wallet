@@ -8,7 +8,7 @@
 ;Variables
 
   !define PRODUCT_NAME "Zephyr"
-  !define PRODUCT_VERSION "0.9.0"
+  !define PRODUCT_VERSION "0.9.1"
   !define PRODUCT_NAME_NO_SPACE "Zephyr"
   !define PREV_PROD_NAME "Zephyr"
   !define PREV_PROD_NAME2 "Zephyr"
@@ -60,7 +60,7 @@
   Caption "${PRODUCT_NAME}"
 
   ;Adds the Product Version on top of the Version Tab in the Properties of the file.
-  VIProductVersion 0.9.0.0
+  VIProductVersion 0.9.1.0
 
   ;VIAddVersionKey - Adds a field in the Version Tab of the File Properties. This can either be a field provided by the system or a user defined field.
   VIAddVersionKey ProductName "${PRODUCT_NAME} Installer"
