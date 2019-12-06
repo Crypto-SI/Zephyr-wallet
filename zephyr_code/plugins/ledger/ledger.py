@@ -443,8 +443,7 @@ class Ledger_KeyStore(Hardware_KeyStore):
                            txin['prevout_hash'],
                            signingPos,
                            txin.get('sequence', 0xffffffff - 1),
-                           txin.get('value'),
-                           extra_data])
+                           txin.get('value')])
             inputsPaths.append(hwAddress)
             pubKeys.append(pubkeys)
 
@@ -500,7 +499,6 @@ class Ledger_KeyStore(Hardware_KeyStore):
                 sequence = int_to_hex(utxo[5], 4)
                 if not p2shTransaction:
                     txtmp = bitcoinTransaction(bfh(utxo[0]))
-                    txtmp.extra_data = utxo[7]
                     trustedInput = self.get_client().getTrustedInput(txtmp, utxo[1])
                     trustedInput['sequence'] = sequence
                     chipInputs.append(trustedInput)

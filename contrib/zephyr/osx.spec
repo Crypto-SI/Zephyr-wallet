@@ -37,24 +37,24 @@ hiddenimports += [
     'PyQt5.sip',
     'PyQt5.QtPrintSupport',  # needed by Revealer
 
-    'zephyr.plugins',
+    'zephyr_code.plugins',
 
-    'zephyr.plugins.hw_wallet.qt',
+    'zephyr_code.plugins.hw_wallet.qt',
 
-    'zephyr.plugins.audio_modem.qt',
-    'zephyr.plugins.cosigner_pool.qt',
-    'zephyr.plugins.digitalbitbox.qt',
-    'zephyr.plugins.email_requests.qt',
-    'zephyr.plugins.keepkey.qt',
-    'zephyr.plugins.revealer.qt',
-    'zephyr.plugins.labels.qt',
-    'zephyr.plugins.trezor.qt',
-    'zephyr.plugins.hideez.client',
-    'zephyr.plugins.hideez.qt',
-    'zephyr.plugins.safe_t.client',
-    'zephyr.plugins.safe_t.qt',
-    'zephyr.plugins.ledger.qt',
-    'zephyr.plugins.virtualkeyboard.qt',
+    'zephyr_code.plugins.audio_modem.qt',
+    'zephyr_code.plugins.cosigner_pool.qt',
+    'zephyr_code.plugins.digitalbitbox.qt',
+    'zephyr_code.plugins.email_requests.qt',
+    'zephyr_code.plugins.keepkey.qt',
+    'zephyr_code.plugins.revealer.qt',
+    'zephyr_code.plugins.labels.qt',
+    'zephyr_code.plugins.trezor.qt',
+    'zephyr_code.plugins.hideez.client',
+    'zephyr_code.plugins.hideez.qt',
+    'zephyr_code.plugins.safe_t.client',
+    'zephyr_code.plugins.safe_t.qt',
+    'zephyr_code.plugins.ledger.qt',
+    'zephyr_code.plugins.virtualkeyboard.qt',
 ]
 
 datas = [

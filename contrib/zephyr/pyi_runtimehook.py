@@ -3,7 +3,7 @@
 import pkgutil
 
 
-PLUGINS_PREFIX = 'zephyr.plugins'
+PLUGINS_PREFIX = 'zephyr_code.plugins'
 
 KEYSTORE_PLUGINS = [
     'hw_wallet',

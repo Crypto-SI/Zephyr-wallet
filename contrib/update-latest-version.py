@@ -23,7 +23,7 @@ try:
     from zephyr import constants, keystore, storage, SimpleConfig
     from zephyr.version import ELECTRUM_VERSION
     from zephyr.gui.qt import update_checker
-    from zephyr.plugin import Plugins
+    from zephyr_code.plugin import Plugins
     from zephyr.storage import WalletStorage
     from zephyr.util import InvalidPassword
     from zephyr.wallet import Wallet
