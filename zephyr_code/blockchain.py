@@ -57,7 +57,7 @@ def serialize_header(header_dict: dict) -> str:
         + int_to_hex(int(header_dict['bits']), 4) \
         + int_to_hex(int(header_dict['nonce']), 4)
 
-    if header_dict['version'] >= ZC_VERSION:
+    if header_dict['version'] >= ZC_VERSION and header_dict['version'] != 7:
         s += rev_hex(header_dict['accumulator_checkpoint'])
     return s
 
@@ -80,7 +80,7 @@ def deserialize_header(s: bytes, height: int) -> dict:
     except NameError:
         pass
     else:
-        if h['version'] >= ZC_VERSION:
+        if h['version'] >= ZC_VERSION and h['version'] != 7:
             h['accumulator_checkpoint'] = hash_encode(s[80:112])
     h['block_height'] = height
     return h
